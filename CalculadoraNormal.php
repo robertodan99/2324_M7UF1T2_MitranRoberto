@@ -46,11 +46,12 @@
 class Calculadora {
     private $numero1;
     private $numero2;
-    
+    private $operacion;
+   
     public function __construct($num1, $num2) {
         $this->numero1 = $num1;
         $this->numero2 = $num2;
-    }
+  }
     
     public function suma() {
         return $this->numero1 + $this->numero2;
@@ -140,10 +141,14 @@ if(isset($_POST['calcular'])){
             $resultado = "Operación no válida";
             break;
         }
-
+ $_SESSION['historial'][] = array('operacion' => $operacion, 'resultado' => $resultado);
     echo "Resultado: $resultado";
       
     }
+if (isset($_POST['clear_historial'])) {
+        $_SESSION['historial'] = array();
+    }
+    
 ?>
  </div>  
 
@@ -167,6 +172,9 @@ if(isset($_POST['calcular'])){
             }
             ?>
         </tbody>
+     <form method="POST">
+            <input type="submit" name="clear_historial" value="Limpiar Historial">
+        </form>
     </table>
 </div>
 
