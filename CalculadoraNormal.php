@@ -2,16 +2,19 @@
 <html>
 <head>
     <title>Calculadora PHP con POO</title>
-    
+    <!-- Función JavaScript para alternar la visibilidad de 'numero2Field' -->
     <script>
         function toggleNumero2Field() {
+            // Obtener la operación seleccionada en el menú desplegable
             var operacion = document.getElementById("operacion").value;
+            // Obtener el elemento 'numero2Field'
             var numero2Field = document.getElementById("numero2Field");
 
+        // Comprobar la operación seleccionada y alternar la visibilidad en consecuencia
             if (operacion === "concatenar" || operacion === "reemplazar" || operacion === "factorial") {
-                numero2Field.style.display = "none";
+                numero2Field.style.display = "none";// Ocultar 'numero2Field'
             } else {
-                numero2Field.style.display = "block";
+                numero2Field.style.display = "block";// Mostrar 'numero2Field'
             }
         }
     </script>
@@ -19,6 +22,7 @@
 <body>
     
     <h1>Calculadora con POO en PHP</h1>
+    <!-- Formulario para entrada y cálculo con la función 'toggleNumero2Field' -->
     <form method="POST" onsubmit="toggleNumero2Field()">
         <input type="text" name="numero1" placeholder="Número 1" required>
         <select name="operacion" id="operacion">
@@ -33,26 +37,36 @@
         <div id="numero2Field">
             <input type="text" name="numero2" placeholder="Número 2">
             </div>
+         <!-- Campos adicionales para la operación 'reemplazar' -->
         <input type="text" name="buscar" placeholder="Buscar (solo para Reemplazar)">
         <input type="text" name="reemplazar" placeholder="Reemplazar (solo para Reemplazar)">
         <input type="submit" name="calcular" value="Calcular">
        </form>
        
+       <!-- Mostrar el resultado del cálculo -->
        <div id="resultado">
       
       
 
 <?php
+// Definición de la clase Calculadora
 class Calculadora {
     private $numero1;
     private $numero2;
     private $operacion;
-   
-    public function __construct($num1, $num2) {
+ // Constructor de la clase
+    public function __construct($num1, $num2, ) {
         $this->numero1 = $num1;
         $this->numero2 = $num2;
-  }
-    
+        }
+
+
+
+    public function construct($num1, $num2) {
+        $this->numero1 = $num1;
+        $this->numero2 = $num2;
+    }
+     // Operaciones de la calculadora
     public function suma() {
         return $this->numero1 + $this->numero2;
     }
@@ -141,14 +155,13 @@ if(isset($_POST['calcular'])){
             $resultado = "Operación no válida";
             break;
         }
- $_SESSION['historial'][] = array('operacion' => $operacion, 'resultado' => $resultado);
+
+        $_SESSION['historial'][] = array('operacion' => $operacion, 'resultado' => $resultado);
     echo "Resultado: $resultado";
-      
     }
-if (isset($_POST['clear_historial'])) {
+    if (isset($_POST['clear_historial'])) {
         $_SESSION['historial'] = array();
     }
-    
 ?>
  </div>  
 
@@ -172,10 +185,11 @@ if (isset($_POST['clear_historial'])) {
             }
             ?>
         </tbody>
-     <form method="POST">
+    </table>
+    <!-- Formulario para limpiar el historial -->
+    <form method="POST">
             <input type="submit" name="clear_historial" value="Limpiar Historial">
         </form>
-    </table>
 </div>
 
 
